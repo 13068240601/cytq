@@ -1,5 +1,37 @@
 <view class='tq_container'>
-  <view class=''>
-
+  <view class='tq_real_time'>
+    <view class='temperature'>
+      <text class='temperature_num'>{{data.temperature}}</text>
+      <text class='temperature_icon'>℃</text>
+    </view>
+    <view class='info'>
+      <view class='left'>
+        <text>
+          天气 {{precipitation==null?skycon:precipitation}}
+        </text>
+        <text>空气质量 {{aqi}}</text>
+        <text>{{direction}}{{wind}}</text>
+        <text>相对湿度 {{data.humidity*100}}%</text>
+        <text>PM2.5 {{data.pm25}} mg/m^3</text>
+        <text>二氧化氮 {{data.no2}}</text>
+        <text>一氧化碳 {{data.co}}</text>
+      </view>
+      <view class='right'>
+        <text>能见度 {{data.visibility}} 千米</text>
+        <text>气压 {{pres}} 百帕</text>
+        <text>体感 {{data.comfort.desc}}</text>
+        <text>紫外线 {{data.ultraviolet.desc}}</text>
+        <text>PM10 {{data.pm10}}</text>
+        <text>臭氧 {{data.o3}}</text>
+        <text>二氧化硫 {{data.so2}}</text>
+      </view>
+    </view>
+    <view class='update' bindtap='getDate'>
+      <image src='../../img/update.png'></image>{{update}}
+    </view>
+  </view>
+  <view class='source'>
+    数据由彩云天气提供
   </view>
 </view>
+<loading hidden='{{hidd_loading}}'>数据加载中...</loading>

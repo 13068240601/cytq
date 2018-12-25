@@ -3,6 +3,7 @@ page{
   padding: 0;
   width: 100%;
   height: 100%;
+  color: #ffffff;
 }
 .tq_container{
   width: 100%;
@@ -10,4 +11,49 @@ page{
   background: url(https://api.zhangcc.top/wxtqbg/bg2.jpg) no-repeat;
   background-size: cover;
   
+}
+.temperature {
+  display: flex;
+  justify-content: center;
+}
+.temperature .temperature_num{
+  font-size: 100px;
+}
+.temperature .temperature_icon{
+  margin-top: 15px;
+}
+.info{
+  display: flex;
+  justify-content: center;
+}
+.info .left,.right{
+  width: 50%
+}
+.info .left text{
+  text-align: right;
+}
+.info .right text{
+  text-align: left;
+}
+.info .left text,.info .right text{
+  display: block;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+.update{
+  text-align: right;
+  font-size: 16px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.update image{
+  width: 20px;
+  height: 20px;
+}
+.source{
+  text-align: center;
+  font-size: 12px;
 }
