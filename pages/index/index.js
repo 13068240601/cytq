@@ -5,7 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    lng:null,//经度
+    lat:null,//维度
+    data:null,//天气数据
   },
   //获取位置
   getLocation:function(){
@@ -17,12 +19,22 @@ Page({
     })
   },
   //获取天气
-  getWeather:function(){
+  getWeather: function (lng, lat){
+    var that = this
     wx: wx.request({
-      url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/121.6544,25.1552/realtime.json',
+      url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/'+lng+','+lat+'/realtime.json',
+      data:{
+        unit:'metric:v2'
+      },
       method: 'GET',
       success: function (res) {
-        // console.log(res.data)
+        console.log(res)
+        if (res.data.status == 'ok'){
+          that.setData({
+            data: res.data.result
+          }, function () {
+          })
+        }
       }
     })
   },
@@ -32,7 +44,8 @@ Page({
   onLoad: function (options) {
     var that = this
     that.getLocation().then((res)=>{
-      console.log(res)
+      // console.log(res)
+      that.getWeather(res.longitude, res.latitude)
     })
   },
 
