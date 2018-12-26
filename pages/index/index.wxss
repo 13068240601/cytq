@@ -4,13 +4,16 @@ page{
   width: 100%;
   height: 100%;
   color: #ffffff;
+  background: url(https://api.zhangcc.top/wxtqbg/bg2.jpg) no-repeat;
+  background-size: cover;
 }
 .tq_container{
   width: 100%;
   height: 100%;
-  background: url(https://api.zhangcc.top/wxtqbg/bg2.jpg) no-repeat;
-  background-size: cover;
-  
+}
+.scroll{
+  width: 100%;
+  height: 100%;
 }
 .temperature {
   display: flex;
@@ -26,6 +29,14 @@ page{
   display: flex;
   justify-content: center;
 }
+.info,.forecast_keypoint,.forecast{
+  width: 90%;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 5px; 
+  padding: 5px 0;
+  box-sizing: border-box;
+}
 .info .left,.right{
   width: 50%
 }
@@ -40,20 +51,53 @@ page{
   padding: 0 10px;
   box-sizing: border-box;
 }
+.forecast_keypoint{
+  text-align: center;
+  margin: 10px auto;
+}
 .update{
   text-align: right;
   font-size: 16px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 0 20px;
+  padding: 10px 10px;
   box-sizing: border-box;
 }
 .update image{
   width: 20px;
   height: 20px;
 }
+.forecast .tb_title{
+  text-align: center;
+}
+.table{
+  overflow-x:auto; 
+  position: relative;
+}
+.table .tr{
+  width: auto;
+  display: block;
+  white-space: nowrap;
+}
+.table .tr text{
+  padding: 0 10px;
+}
+.table .tr .th,.td{
+  display: inline-block;
+  width: 180px;
+  text-align: center;
+}
+.table .tr .title{
+  width: 80px;
+  display: inline-block;
+  text-align: right;
+}
+.forecast5{
+  margin-top: 10px; 
+}
 .source{
   text-align: center;
   font-size: 12px;
+  padding: 10px 0;
 }

@@ -16,6 +16,8 @@ Page({
     precipitation:'',//降雨量
     pres:'',//大气压
     hidd_loading:true,//隐藏加载中动画
+    forecast_keypoint: '',//预测关键点
+    forecast:'',//预报数据
   },
   //获取位置
   getLocation:function(){
@@ -181,29 +183,29 @@ Page({
     })
   },
   direction:function(e){
-    if(0 < e && e < 5){
+    if(0 < e && e <= 5){
       this.setDirection('北')
-    } else if (6 < e && e < 45){
+    } else if (6 < e && e <= 45){
       this.setDirection('东北偏北')
-    } else if (46 < e && e<85){
+    } else if (46 < e && e<=85){
       this.setDirection('东北偏东')
-    } else if (86 < e && e<95){
+    } else if (86 < e && e<=95){
       this.setDirection('东')
-    } else if (96 < e && e<135) {
+    } else if (96 < e && e<=135) {
       this.setDirection('东南偏东')
-    } else if (136 < e && e < 175) {
+    } else if (136 < e && e <= 175) {
       this.setDirection('东南偏南')
-    } else if (176 < e && e< 185) {
+    } else if (176 < e && e<= 185) {
       this.setDirection('南')
-    } else if (186 < e && e < 225) {
+    } else if (186 < e && e <= 225) {
       this.setDirection('西南偏南')
-    } else if (226 < e && e < 275) {
+    } else if (226 < e && e <= 275) {
       this.setDirection('西南偏西')
-    } else if (276 < e && e< 315) {
+    } else if (276 < e && e<= 315) {
       this.setDirection('西北偏西')
-    } else if (316 < e && e < 355) {
+    } else if (316 < e && e <= 355) {
       this.setDirection('西北偏北')
-    } else if (356 < e && e<360) {
+    } else if (356 < e && e<=360) {
       this.setDirection('北风')
     }
   },
@@ -217,7 +219,7 @@ Page({
       },
       method: 'GET',
       success: function (res) {
-        // console.log(res)
+        // console.log(res.data.server_time * 1000)
         if (res.data.status == 'ok'){
           var date = new Date(res.data.server_time*1000)
           if (date.getSeconds()<10){
@@ -235,7 +237,8 @@ Page({
           }else{
             var m = date.getMinutes()
           }
-          var update = h + ':' + h + ':' + s
+          // console.log(new Date(res.data.server_time * 1000))
+          var update = h + ':' + m + ':' + s
           that.aqi(res.data.result.aqi) //空气质量
           that.skycon(res.data.result.skycon) //天气概况
           that.wind(res.data.result.wind.speed) //风力等级
@@ -262,6 +265,25 @@ Page({
     that.getLocation().then((res) => {
       // console.log(res)
       that.getWeather(res.longitude, res.latitude)
+      that.getforecast(res.longitude, res.latitude)
+    })
+  },
+  //获取天气预报
+  getforecast(lng,lat){
+    var that = this
+    wx.request({
+      url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/'+ lng + ',' + lat +'/forecast.json',
+      data: {
+        unit: 'metric:v2'
+      },
+      method: 'GET',
+      success: function (res) {
+        that.setData({
+          forecast_keypoint: res.data.result.forecast_keypoint,
+          forecast: res.data.result
+        })
+        console.log(res.data)
+      }
     })
   },
   onLoad: function (options) {
