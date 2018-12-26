@@ -282,7 +282,7 @@ Page({
           forecast_keypoint: res.data.result.forecast_keypoint,
           forecast: res.data.result
         })
-        console.log(res.data)
+        // console.log(res.data)
       }
     })
   },

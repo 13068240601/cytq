@@ -32,7 +32,7 @@ page{
 .info,.forecast_keypoint,.forecast{
   width: 90%;
   margin: 0 auto;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 5px; 
   padding: 5px 0;
   box-sizing: border-box;

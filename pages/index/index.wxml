@@ -28,9 +28,8 @@
           <text>二氧化硫 {{data.so2}}</text>
         </view>
       </view>
-      <view class='forecast_keypoint'>
-        {{forecast_keypoint}}
-      </view>
+      <view class='forecast_keypoint'>{{forecast_keypoint}}</view>
+      <view class='forecast_keypoint'>{{forecast.hourly.description}}</view>
       <view class='forecast'>
         <view class='tb_title'>逐小时天气</view>
         <view class='table'>
@@ -80,7 +79,7 @@
             <text class='th' wx:for='{{forecast.daily.aqi}}' wx:key='{{index}}'>{{item.date}}</text>
           </view>
           <view class='tr'>
-            <text class='title'>空气质量指数</text>
+            <text class='title'>空气质量</text>
             <text class='td' wx:for='{{forecast.daily.aqi}}' wx:key='{{index}}'>{{item.min}}/{{item.max}}</text>
           </view>
           <view class='tr'>
@@ -107,8 +106,28 @@
             <text class='td' wx:for='{{forecast.daily.temperature}}' wx:key='{{index}}'>{{item.min}}℃/{{item.max}}℃</text>
           </view>
           <view class='tr'>
+            <text class='title'>舒适度</text>
+            <text class='td' wx:for='{{forecast.daily.comfort}}' wx:key='{{index}}'>{{item.desc}}</text>
+          </view>
+          <view class='tr'>
+            <text class='title'>穿衣指数</text>
+            <text class='td' wx:for='{{forecast.daily.dressing}}' wx:key='{{index}}'>{{item.desc}}</text>
+          </view>
+          <view class='tr'>
+            <text class='title'>生病指数</text>
+            <text class='td' wx:for='{{forecast.daily.coldRisk}}' wx:key='{{index}}'>{{item.desc}}</text>
+          </view>
+          <view class='tr'>
             <text class='title'>洗车指数</text>
             <text class='td' wx:for='{{forecast.daily.carWashing}}' wx:key='{{index}}'>{{item.desc}}</text>
+          </view>
+          <view class='tr'>
+            <text class='title'>紫外线</text>
+            <text class='td' wx:for='{{forecast.daily.ultraviolet}}' wx:key='{{index}}'>{{item.desc}}</text>
+          </view>
+          <view class='tr'>
+            <text class='title'>能见度</text>
+            <text class='td' wx:for='{{forecast.daily.visibility}}' wx:key='{{index}}'>{{item.min}}KM/{{item.max}}KM</text>
           </view>
         </view>
       </view>
