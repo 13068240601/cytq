@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    load:false,//数据加载完
     lng:'',//经度
     lat:'',//维度
     data:'',//天气数据
@@ -212,50 +213,57 @@ Page({
   //获取天气
   getWeather: function (lng, lat){
     var that = this
-    wx: wx.request({
-      url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/'+lng+','+lat+'/realtime.json',
-      data:{
-        unit:'metric:v2'
-      },
-      method: 'GET',
-      success: function (res) {
-        // console.log(res.data.server_time * 1000)
-        if (res.data.status == 'ok'){
-          var date = new Date(res.data.server_time*1000)
-          if (date.getSeconds()<10){
-            var s = '0' + date.getSeconds()
-          }else{
-            var s = date.getSeconds()
+    this.setData({
+      hidd_loading:false,
+      load:false,
+    },function(){
+      wx: wx.request({
+        url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/' + lng + ',' + lat + '/realtime.json',
+        data: {
+          unit: 'metric:v2'
+        },
+        method: 'GET',
+        success: function (res) {
+          // console.log(res.data.server_time * 1000)
+          if (res.data.status == 'ok') {
+            var date = new Date(res.data.server_time * 1000)
+            if (date.getSeconds() < 10) {
+              var s = '0' + date.getSeconds()
+            } else {
+              var s = date.getSeconds()
+            }
+            if (date.getHours() < 10) {
+              var h = '0' + date.getHours()
+            } else {
+              var h = date.getHours()
+            }
+            if (date.getMinutes() < 10) {
+              var m = '0' + date.getMinutes()
+            } else {
+              var m = date.getMinutes()
+            }
+            // console.log(new Date(res.data.server_time * 1000))
+            var update = h + ':' + m + ':' + s
+            that.aqi(res.data.result.aqi) //空气质量
+            that.skycon(res.data.result.skycon) //天气概况
+            that.wind(res.data.result.wind.speed) //风力等级
+            that.precipitation(res.data.result.precipitation.local.intensity)//降雨等级
+            that.direction(res.data.result.wind.direction)//风向
+            var pres = Math.round((res.data.result.pres * 100) / 100) / 100
+            // console.log(pres)
+            that.setData({
+              hidd_loading: true,
+              load:true,
+              update: update,//更新时间
+              pres: pres,//大气压/百帕
+              data: res.data.result
+            }, function () {
+            })
           }
-          if (date.getHours()<10){
-            var h = '0' + date.getHours()
-          }else{
-            var h = date.getHours()
-          }
-          if (date.getMinutes()<10){
-            var m = '0' + date.getMinutes()
-          }else{
-            var m = date.getMinutes()
-          }
-          // console.log(new Date(res.data.server_time * 1000))
-          var update = h + ':' + m + ':' + s
-          that.aqi(res.data.result.aqi) //空气质量
-          that.skycon(res.data.result.skycon) //天气概况
-          that.wind(res.data.result.wind.speed) //风力等级
-          that.precipitation(res.data.result.precipitation.local.intensity)//降雨等级
-          that.direction(res.data.result.wind.direction)//风向
-          var pres = Math.round((res.data.result.pres * 100)/100) / 100
-          // console.log(pres)
-          that.setData({
-            hidd_loading:true,
-            update: update,//更新时间
-            pres: pres,//大气压/百帕
-            data: res.data.result
-          }, function () {
-          })
         }
-      }
+      })
     })
+    
   },
   /**
    * 生命周期函数--监听页面加载
@@ -271,20 +279,28 @@ Page({
   //获取天气预报
   getforecast(lng,lat){
     var that = this
-    wx.request({
-      url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/'+ lng + ',' + lat +'/forecast.json',
-      data: {
-        unit: 'metric:v2'
-      },
-      method: 'GET',
-      success: function (res) {
-        that.setData({
-          forecast_keypoint: res.data.result.forecast_keypoint,
-          forecast: res.data.result
-        })
-        // console.log(res.data)
-      }
+    that.setData({
+      hidd_loading: false,
+      load: false,
+    },function(){
+      wx.request({
+        url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/' + lng + ',' + lat + '/forecast.json',
+        data: {
+          unit: 'metric:v2'
+        },
+        method: 'GET',
+        success: function (res) {
+          that.setData({
+            forecast_keypoint: res.data.result.forecast_keypoint,
+            forecast: res.data.result,
+            hidd_loading:true,
+            load:true
+          })
+          // console.log(res.data)
+        }
+      })
     })
+   
   },
   onLoad: function (options) {
     this.getDate()

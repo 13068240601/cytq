@@ -1,6 +1,9 @@
-<view class='tq_container'>
+<view class='tq_container' wx:if='{{load}}'>
   <scroll-view scroll-y class='scroll'>
     <view class='tq_real_time'>
+      <view class='address'>
+        <text>{{address}}</text>
+      </view>
       <view class='temperature'>
         <text class='temperature_num'>{{data.temperature}}</text>
         <text class='temperature_icon'>℃</text>
