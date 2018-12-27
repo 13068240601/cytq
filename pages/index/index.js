@@ -1,4 +1,5 @@
 // pages/index/index.js
+var amapFile = require('../../amap/amap-wx.js');
 Page({
 
   /**
@@ -19,6 +20,13 @@ Page({
     hidd_loading:true,//隐藏加载中动画
     forecast_keypoint: '',//预测关键点
     forecast:'',//预报数据
+    address:'',
+  },
+  //搜索地址
+  search:function(){
+    wx.redirectTo({
+      url:'../search/search'
+    })
   },
   //获取位置
   getLocation:function(){
@@ -218,7 +226,7 @@ Page({
       load:false,
     },function(){
       wx: wx.request({
-        url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/' + lng + ',' + lat + '/realtime.json',
+        url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/' + lng + ',' + lat + '/realtime.json',  
         data: {
           unit: 'metric:v2'
         },
@@ -268,13 +276,44 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  getDate(){
+  // 获取地名
+  getAddress:function(){
     var that = this
-    that.getLocation().then((res) => {
-      // console.log(res)
-      that.getWeather(res.longitude, res.latitude)
-      that.getforecast(res.longitude, res.latitude)
+    wx.request({
+      url: 'https://restapi.amap.com/v3/geocode/regeo',
+      data: {
+        location: that.data.lng + ',' + that.data.lat,
+        key: 'e4bafd250b7db094f1d57bc5151925a3',
+      },
+      success: function (res) {
+        // console.log(res)
+        if (res.data.status == 1) {
+          that.setData({
+            address: res.data.regeocode
+          })
+        }
+      }
     })
+  },
+  getData(){
+    var that = this
+    if (that.data.lng == '' || that.data.lat==''){
+      that.getLocation().then((res) => {
+        that.setData({
+          lng: res.longitude,
+          lat: res.latitude
+        }, function () {
+          that.getWeather(that.data.lng, that.data.lat)
+          that.getforecast(that.data.lng, that.data.lat)
+          that.getAddress()
+        })
+      })
+    }else{
+      that.getWeather(that.data.lng, that.data.lat)
+      that.getforecast(that.data.lng, that.data.lat)
+      that.getAddress()
+    }
+    
   },
   //获取天气预报
   getforecast(lng,lat){
@@ -303,7 +342,17 @@ Page({
    
   },
   onLoad: function (options) {
-    this.getDate()
+    var that = this
+    if(options.lng){
+      that.setData({
+        lng: options.lng,
+        lat: options.lat
+      }, function () {
+        that.getData()
+      })
+    }else{
+      that.getData()
+    }
   },
 
   /**

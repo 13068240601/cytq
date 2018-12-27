@@ -1,11 +1,12 @@
 {
-  "pages":[
-    "pages/index/index"
+  "pages": [
+    "pages/index/index",
+    "pages/search/search"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "彩云接口天气预报",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   }
 }

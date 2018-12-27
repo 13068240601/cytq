@@ -1,14 +1,14 @@
 <view class='tq_container' wx:if='{{load}}'>
   <scroll-view scroll-y class='scroll'>
     <view class='tq_real_time'>
-      <view class='address'>
-        <text>{{address}}</text>
+      <view class='address' bindtap='search'>
+        <text>{{address.addressComponent.district}}{{address.addressComponent.township}}{{address.addressComponent.streetNumber.street}}附近</text>
       </view>
       <view class='temperature'>
         <text class='temperature_num'>{{data.temperature}}</text>
         <text class='temperature_icon'>℃</text>
       </view>
-      <view class='update' bindtap='getDate'>
+      <view class='update' bindtap='getData'>
         <image src='../../img/update.png'></image>{{update}}
       </view>
       <view class='info'>
@@ -42,12 +42,12 @@
           </view>
           <view class='tr'>
             <text class='title'>空气质量</text>
-            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>0&&item.value<=50}}' wx:key='{{index}}'>优 {{item.value}}</text>
-            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>50&&item.value<=100}}' wx:key='{{index}}'>良 {{item.value}}</text>
-            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>100&&item.value<=150}}' wx:key='{{index}}'>轻度污染 {{item.value}}</text>
-            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>150&&item.value<=200}}' wx:key='{{index}}'>中度污染 {{item.value}}</text>
-            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>200&&item.value<=300}}' wx:key='{{index}}'>重度污染 {{item.value}}</text>
-            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>300}}' wx:key='{{index}}'>严重污染 {{item.value}}</text>
+            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>0&&item.value<=50}}' wx:key='{{index}}'>优({{item.value}})</text>
+            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>50&&item.value<=100}}' wx:key='{{index}}'>良({{item.value}})</text>
+            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>100&&item.value<=150}}' wx:key='{{index}}'>轻度污染({{item.value}})</text>
+            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>150&&item.value<=200}}' wx:key='{{index}}'>中度污染({{item.value}})</text>
+            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>200&&item.value<=300}}' wx:key='{{index}}'>重度污染({{item.value}})</text>
+            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>300}}' wx:key='{{index}}'>严重污染({{item.value}})</text>
           </view>
           <view class='tr'>
             <text class='title'>相对湿度</text>
@@ -117,7 +117,7 @@
             <text class='td' wx:for='{{forecast.daily.dressing}}' wx:key='{{index}}'>{{item.desc}}</text>
           </view>
           <view class='tr'>
-            <text class='title'>生病指数</text>
+            <text class='title'>感冒指数</text>
             <text class='td' wx:for='{{forecast.daily.coldRisk}}' wx:key='{{index}}'>{{item.desc}}</text>
           </view>
           <view class='tr'>

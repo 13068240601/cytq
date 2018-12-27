@@ -1,0 +1,28 @@
+<view class='search_container'>
+  <view class='search_input'>
+    <image src='../../img/search.png'></image>
+    <input bindinput='getAddress'></input>
+  </view>
+  <view class='data'>
+    <view
+      class='item' 
+      bindtap='change' 
+      wx:for='{{pois}}' 
+      wx:if='{{item.cityname == item.name}}' 
+      data-location='{{item.location}}' 
+      wx:key='{{index}}'
+    >
+      {{item.cityname}},{{item.adname}}
+    </view>
+    <view
+      class='item'
+      bindtap='change'
+      wx:if='{{item.cityname != item.name}}' 
+      wx:for='{{pois}}'
+      data-location='{{item.location}}'
+      wx:key='{{index}}'
+    >
+      {{item.cityname}},{{item.adname}},{{item.name}}
+    </view>
+  </view>
+</view>
