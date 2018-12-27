@@ -1,7 +1,7 @@
 <view class='search_container'>
   <view class='search_input'>
-    <image src='../../img/search.png'></image>
-    <input bindinput='getAddress'></input>
+    <input bindinput='getVal'></input>
+    <image bindtap='getAddress' src='../../img/search.png'></image>
   </view>
   <view class='data'>
     <view
@@ -11,16 +11,29 @@
       wx:if='{{item.cityname == item.name}}' 
       data-location='{{item.location}}' 
       wx:key='{{index}}'
+      id='{{index}}'
+    >
+      {{item.cityname}},{{item.adname}}
+    </view>
+    <view
+      class='item' 
+      bindtap='change' 
+      wx:for='{{pois}}' 
+      wx:if='{{item.adname == item.name}}' 
+      data-location='{{item.location}}' 
+      wx:key='{{index}}'
+      id='{{index}}'
     >
       {{item.cityname}},{{item.adname}}
     </view>
     <view
       class='item'
       bindtap='change'
-      wx:if='{{item.cityname != item.name}}' 
+      wx:if='{{item.cityname != item.name&&item.adname!=item.name}}' 
       wx:for='{{pois}}'
       data-location='{{item.location}}'
       wx:key='{{index}}'
+      id='{{index}}'
     >
       {{item.cityname}},{{item.adname}},{{item.name}}
     </view>

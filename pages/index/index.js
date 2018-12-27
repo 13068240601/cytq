@@ -297,7 +297,7 @@ Page({
   },
   getData(){
     var that = this
-    if (that.data.lng == '' || that.data.lat==''){
+    if ((that.data.lng == '' || that.data.lat=='')&&that.data.address==''){
       that.getLocation().then((res) => {
         that.setData({
           lng: res.longitude,
@@ -311,7 +311,8 @@ Page({
     }else{
       that.getWeather(that.data.lng, that.data.lat)
       that.getforecast(that.data.lng, that.data.lat)
-      that.getAddress()
+      // that.getAddress()
+      // console.log(that.data.address)
     }
     
   },
@@ -343,10 +344,25 @@ Page({
   },
   onLoad: function (options) {
     var that = this
+    // wx.getSetting({
+    //   success(res) {
+    //     console.log(res.authSetting['scope.userLocation'])
+    //     if (res.authSetting['scope.userLocation']==false){
+    //       console.log(123)
+    //       wx.authorize({
+    //         scope: 'scope.userLocation',
+    //         success() {
+    //           wx.startRecord()
+    //         }
+    //       })
+    //     }
+    //   }
+    // })
     if(options.lng){
       that.setData({
         lng: options.lng,
-        lat: options.lat
+        lat: options.lat,
+        address: options.name
       }, function () {
         that.getData()
       })

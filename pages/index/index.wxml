@@ -2,7 +2,8 @@
   <scroll-view scroll-y class='scroll'>
     <view class='tq_real_time'>
       <view class='address' bindtap='search'>
-        <text>{{address.addressComponent.district}}{{address.addressComponent.township}}{{address.addressComponent.streetNumber.street}}附近</text>
+        <text wx:if='{{address.addressComponent}}'>{{address.addressComponent.district}}{{address.addressComponent.township}}{{address.addressComponent.streetNumber.street}}附近</text>
+        <text wx:else>{{address}}</text>
       </view>
       <view class='temperature'>
         <text class='temperature_num'>{{data.temperature}}</text>

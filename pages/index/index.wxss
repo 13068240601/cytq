@@ -13,7 +13,8 @@ page{
 }
 .address{
   text-align: center;
-  padding: 10px 0;
+  padding: 10px 10px;
+  box-sizing: border-box;
 }
 .scroll{
   width: 100%;
