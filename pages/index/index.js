@@ -1,5 +1,4 @@
 // pages/index/index.js
-var amapFile = require('../../amap/amap-wx.js');
 Page({
 
   /**
@@ -20,6 +19,9 @@ Page({
     hidd_loading:true,//隐藏加载中动画
     forecast_keypoint: '',//预测关键点
     forecast:'',//预报数据
+    hourly:'',//小时级天气预报
+    hourlypres: [],//小时级气压
+    daypres:[],//天级级气压
     address:'',
   },
   //搜索地址
@@ -257,7 +259,7 @@ Page({
             that.wind(res.data.result.wind.speed) //风力等级
             that.precipitation(res.data.result.precipitation.local.intensity)//降雨等级
             that.direction(res.data.result.wind.direction)//风向
-            var pres = Math.round((res.data.result.pres * 100) / 100) / 100
+            var pres = Math.round((res.data.result.pres * 100) / 100)
             // console.log(pres)
             that.setData({
               hidd_loading: true,
@@ -305,18 +307,20 @@ Page({
         }, function () {
           that.getWeather(that.data.lng, that.data.lat)
           that.getforecast(that.data.lng, that.data.lat)
+          that.gethourly(that.data.lng, that.data.lat)
           that.getAddress()
         })
       })
     }else{
       that.getWeather(that.data.lng, that.data.lat)
       that.getforecast(that.data.lng, that.data.lat)
+      that.gethourly(that.data.lng, that.data.lat)      
       // that.getAddress()
       // console.log(that.data.address)
     }
     
   },
-  //获取天气预报
+  //获取天级天气预报
   getforecast(lng,lat){
     var that = this
     that.setData({
@@ -324,15 +328,22 @@ Page({
       load: false,
     },function(){
       wx.request({
-        url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/' + lng + ',' + lat + '/forecast.json',
+        url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/' + lng + ',' + lat + '/daily.json',
         data: {
           unit: 'metric:v2'
         },
         method: 'GET',
         success: function (res) {
+          var daypres = res.data.result.daily.pres
+          var dpres = [];
+          for (let i = 0; i < daypres.length; i++) {
+            dpres[i] = {}
+            dpres[i].max = Math.round((daypres[i].max * 100) / 100)
+            dpres[i].min = Math.round((daypres[i].min * 100) / 100)
+          }
           that.setData({
-            forecast_keypoint: res.data.result.forecast_keypoint,
             forecast: res.data.result,
+            daypres: dpres,
             hidd_loading:true,
             load:true
           })
@@ -342,8 +353,40 @@ Page({
     })
    
   },
+  // 获取小时级天气预报
+  gethourly(lng,lat){
+    var that = this
+    that.setData({
+      hidd_loading: false,
+      load: false,
+    }, function () {
+      wx.request({
+        url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/' + lng + ',' + lat + '/hourly.json',
+        data: {
+          unit: 'metric:v2'
+        },
+        method: 'GET',
+        success: function (res) {
+          var hourlypres = res.data.result.hourly.pres
+          var hpres = [];
+          for (let i = 0; i < hourlypres.length;i++){
+            hpres.push(Math.round((hourlypres[i].value * 100) / 100))
+          }
+          that.setData({
+            forecast_keypoint: res.data.result.forecast_keypoint,
+            hourly: res.data.result,
+            hourlypres: hpres,
+            hidd_loading: true,
+            load: true
+          })
+          // console.log(res.data)
+        }
+      })
+    })
+  },
   onLoad: function (options) {
     var that = this
+    
     // wx.getSetting({
     //   success(res) {
     //     console.log(res.authSetting['scope.userLocation'])

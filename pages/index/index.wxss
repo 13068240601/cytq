@@ -25,7 +25,7 @@ page{
   justify-content: center;
 }
 .temperature .temperature_num{
-  font-size: 100px;
+  font-size: 200rpx;
 }
 .temperature .temperature_icon{
   margin-top: 15px;
@@ -54,15 +54,17 @@ page{
 .info .left text,.info .right text{
   display: block;
   padding: 0 10px;
+  font-size: 32rpx;
   box-sizing: border-box;
 }
 .forecast_keypoint{
   text-align: center;
   margin: 10px auto;
+  font-size: 32rpx;
 }
 .update{
   text-align: right;
-  font-size: 16px;
+  font-size: 32rpx;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -79,6 +81,7 @@ page{
 .table{
   overflow-x:auto; 
   position: relative;
+  font-size: 32rpx;
 }
 .table .tr{
   width: auto;
@@ -107,6 +110,6 @@ page{
 }
 .source{
   text-align: center;
-  font-size: 12px;
+  font-size: 24rpx;
   padding: 10px 0;
 }

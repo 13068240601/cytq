@@ -8,34 +8,12 @@
       class='item' 
       bindtap='change' 
       wx:for='{{pois}}' 
-      wx:if='{{item.cityname == item.name}}' 
-      data-location='{{item.location}}' 
+      data-lat='{{item.location.lat}}' 
+      data-lng='{{item.location.lng}}' 
       wx:key='{{index}}'
       id='{{index}}'
     >
-      {{item.cityname}},{{item.adname}}
-    </view>
-    <view
-      class='item' 
-      bindtap='change' 
-      wx:for='{{pois}}' 
-      wx:if='{{item.adname == item.name}}' 
-      data-location='{{item.location}}' 
-      wx:key='{{index}}'
-      id='{{index}}'
-    >
-      {{item.cityname}},{{item.adname}}
-    </view>
-    <view
-      class='item'
-      bindtap='change'
-      wx:if='{{item.cityname != item.name&&item.adname!=item.name}}' 
-      wx:for='{{pois}}'
-      data-location='{{item.location}}'
-      wx:key='{{index}}'
-      id='{{index}}'
-    >
-      {{item.cityname}},{{item.adname}},{{item.name}}
+      {{item.city}},{{item.district}},{{item.title}}
     </view>
   </view>
 </view>

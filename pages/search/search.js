@@ -1,6 +1,6 @@
 // pages/search/search.js
+var QQMapWX = require('../../mapapi/qqmap-wx-jssdk.min.js');
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -22,21 +22,39 @@ Page({
   getAddress:function(e){
     // console.log(e.detail.value)
     var that = this
-    wx.request({
-      url: 'https://restapi.amap.com/v3/place/text',
-      data:{
-        keywords:that.data.val,
-        key:'72309cbc0e86ee57c8c63a1247b0ed66',
-        citylimit:true,
-        offset:20
-      },
+    var qqmapsdk = new QQMapWX({
+      key: 'FFHBZ-55RWX-WOA4E-ZNB7T-56X2Z-3NBDQ' // 必填
+    });
+    qqmapsdk.getSuggestion({
+      keyword: that.data.val,
       success:function(res){
-        console.log(res.data.pois)
+        // console.log(res.data)
         that.setData({
-          pois:res.data.pois
+          pois:res.data
         })
+      },
+      fail: function (res) {
+        console.log(res);
+      },
+      complete: function (res) {
+        // console.log(res);
       }
     })
+    // wx.request({
+    //   url: 'https://restapi.amap.com/v3/place/text',
+    //   data:{
+    //     keywords:that.data.val,
+    //     key:'72309cbc0e86ee57c8c63a1247b0ed66',
+    //     citylimit:true,
+    //     offset:20
+    //   },
+    //   success:function(res){
+    //     // console.log(res.data.pois)
+    //     that.setData({
+    //       pois:res.data.pois
+    //     })
+    //   }
+    // })
   },
   jump({lng,lat,name}){
     if(name){
@@ -50,10 +68,10 @@ Page({
     }
   },
   change:function(e){
-    var location = e.currentTarget.dataset.location
+    var location = e.currentTarget.dataset
     var id = e.currentTarget.id
-    var lng = location.split(',')[0]
-    var lat = location.split(',')[1]
+    var lng = location.lng
+    var lat = location.lat
     var that = this
     // if ((that.data.pois[id].name.indexOf('省') != -1 || that.data.pois[id].name.indexOf('市') != -1 || that.data.pois[id].name.indexOf('区') != -1 || that.data.pois[id].name.indexOf('镇') != -1) && that.data.pois[id].name.indexOf('社区') == -1){
     //   // console.log(that.data.pois[id].name)
@@ -61,13 +79,14 @@ Page({
     // } else if (that.data.pois[id].name.indexOf('社区') != -1){
     //   that.jump({ lng: lng, lat: lat})
     // }else{
-    if (that.data.pois[id].cityname == that.data.pois[id].name){
-      var name = that.data.pois[id].cityname + ',' + that.data.pois[id].adname
-    } else if ((that.data.pois[id].cityname + that.data.pois[id].adname) == that.data.pois[id].name){
-      var name = that.data.pois[id].name
-    }else{
-      var name = that.data.pois[id].cityname + ',' + that.data.pois[id].adname + ',' + that.data.pois[id].name
-    }
+    // if (that.data.pois[id].cityname == that.data.pois[id].name){
+    //   var name = that.data.pois[id].cityname + ',' + that.data.pois[id].adname
+    // } else if ((that.data.pois[id].cityname + that.data.pois[id].adname) == that.data.pois[id].name){
+    //   var name = that.data.pois[id].name
+    // }else{
+    //   var name = that.data.pois[id].cityname + ',' + that.data.pois[id].adname + ',' + that.data.pois[id].name
+    // }
+    var name = that.data.pois[id].city + ',' + that.data.pois[id].district + ',' +  that.data.pois[id].title
     that.jump({ lng: lng, lat: lat, name: name})
     // }
     
@@ -80,7 +99,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**

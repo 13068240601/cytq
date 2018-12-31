@@ -17,61 +17,65 @@
           <text>天气 {{precipitation==null?skycon:precipitation}}</text>
           <text>空气质量 {{aqi}}</text>
           <text>{{direction}}风{{wind}}</text>
-          <text>相对湿度 {{data.humidity*100}}%</text>
-          <text>PM2.5 {{data.pm25}}</text>
-          <text>二氧化氮 {{data.no2}}</text>
-          <text>一氧化碳 {{data.co}}</text>
+          <text>相对湿度 {{data.humidity*1000/10}}%</text>
+          <text>PM2.5 {{data.pm25}}μg/m3</text>
+          <text>二氧化氮 {{data.no2}}μg/m3</text>
+          <text>一氧化碳 {{data.co}}μg/m3</text>
         </view>
         <view class='right'>
           <text>能见度 {{data.visibility}}KM</text>
-          <text>气压 {{pres}}</text>
+          <text>气压 {{pres}}Pa</text>
           <text>体感 {{data.comfort.desc}}</text>
           <text>紫外线 {{data.ultraviolet.desc}}</text>
-          <text>PM10 {{data.pm10}}</text>
-          <text>臭氧 {{data.o3}}</text>
-          <text>二氧化硫 {{data.so2}}</text>
+          <text>PM10 {{data.pm10}}μg/m3</text>
+          <text>臭氧 {{data.o3}}μg/m3</text>
+          <text>二氧化硫 {{data.so2}}μg/m3</text>
         </view>
       </view>
       <view class='forecast_keypoint'>{{forecast_keypoint}}</view>
-      <view class='forecast_keypoint'>{{forecast.hourly.description}}</view>
+      <!-- <view class='forecast_keypoint'>{{hourly.hourly.description}}</view> -->
       <view class='forecast'>
         <view class='tb_title'>逐小时天气</view>
         <view class='table'>
           <view class='tr'>
             <text class='title'>时间</text>
-            <text class='th' wx:for='{{forecast.hourly.aqi}}' wx:key='{{index}}'>{{item.datetime}}</text>
+            <text class='th' wx:for='{{hourly.hourly.aqi}}' wx:key='{{index}}'>{{item.datetime}}</text>
           </view>
           <view class='tr'>
             <text class='title'>空气质量</text>
-            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>0&&item.value<=50}}' wx:key='{{index}}'>优({{item.value}})</text>
-            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>50&&item.value<=100}}' wx:key='{{index}}'>良({{item.value}})</text>
-            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>100&&item.value<=150}}' wx:key='{{index}}'>轻度污染({{item.value}})</text>
-            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>150&&item.value<=200}}' wx:key='{{index}}'>中度污染({{item.value}})</text>
-            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>200&&item.value<=300}}' wx:key='{{index}}'>重度污染({{item.value}})</text>
-            <text class='td' wx:for='{{forecast.hourly.aqi}}' wx:if='{{item.value>300}}' wx:key='{{index}}'>严重污染({{item.value}})</text>
+            <text class='td' wx:for='{{hourly.hourly.aqi}}' wx:if='{{item.value>0&&item.value<=50}}' wx:key='{{index}}'>优({{item.value}})</text>
+            <text class='td' wx:for='{{hourly.hourly.aqi}}' wx:if='{{item.value>50&&item.value<=100}}' wx:key='{{index}}'>良({{item.value}})</text>
+            <text class='td' wx:for='{{hourly.hourly.aqi}}' wx:if='{{item.value>100&&item.value<=150}}' wx:key='{{index}}'>轻度污染({{item.value}})</text>
+            <text class='td' wx:for='{{hourly.hourly.aqi}}' wx:if='{{item.value>150&&item.value<=200}}' wx:key='{{index}}'>中度污染({{item.value}})</text>
+            <text class='td' wx:for='{{hourly.hourly.aqi}}' wx:if='{{item.value>200&&item.value<=300}}' wx:key='{{index}}'>重度污染({{item.value}})</text>
+            <text class='td' wx:for='{{hourly.hourly.aqi}}' wx:if='{{item.value>300}}' wx:key='{{index}}'>严重污染({{item.value}})</text>
           </view>
           <view class='tr'>
             <text class='title'>相对湿度</text>
-            <text class='td' wx:for='{{forecast.hourly.humidity}}' wx:key='{{index}}'>{{item.value*1000/10}}%</text>
+            <text class='td' wx:for='{{hourly.hourly.humidity}}' wx:key='{{index}}'>{{item.value*1000/10}}%</text>
           </view>
           <view class='tr'>
             <text class='title'>PM2.5</text>
-            <text class='td' wx:for='{{forecast.hourly.pm25}}' wx:key='{{index}}'>{{item.value}}</text>
+            <text class='td' wx:for='{{hourly.hourly.pm25}}' wx:key='{{index}}'>{{item.value}}μg/m3</text>
           </view>
           <view class='tr'>
             <text class='title'>天气</text>
-            <text class='td' wx:for='{{forecast.hourly.skycon}}' wx:if='{{item.value=="CLEAR_DAY"}}' wx:key='{{index}}'>晴天</text>
-            <text class='td' wx:for='{{forecast.hourly.skycon}}' wx:if='{{item.value=="CLEAR_NIGHT"}}' wx:key='{{index}}'>晴夜</text>
-            <text class='td' wx:for='{{forecast.hourly.skycon}}' wx:if='{{item.value=="PARTLY_CLOUDY_DAY"||item.value=="PARTLY_CLOUDY_NIGHT"}}' wx:key='{{index}}'>多云</text>
-            <text class='td' wx:for='{{forecast.hourly.skycon}}' wx:if='{{item.value=="CLOUDY"}}' wx:key='{{index}}'>阴</text>
-            <text class='td' wx:for='{{forecast.hourly.skycon}}' wx:if='{{item.value=="RAIN"}}' wx:key='{{index}}'>雨</text>
-            <text class='td' wx:for='{{forecast.hourly.skycon}}' wx:if='{{item.value=="SNOW"}}' wx:key='{{index}}'>雪</text>
-            <text class='td' wx:for='{{forecast.hourly.skycon}}' wx:if='{{item.value=="WIND"}}' wx:key='{{index}}'>风</text>
-            <text class='td' wx:for='{{forecast.hourly.skycon}}' wx:if='{{item.value=="HAZE"}}' wx:key='{{index}}'>雾霾沙尘</text>
+            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="CLEAR_DAY"}}' wx:key='{{index}}'>晴</text>
+            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="CLEAR_NIGHT"}}' wx:key='{{index}}'>晴</text>
+            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="PARTLY_CLOUDY_DAY"||item.value=="PARTLY_CLOUDY_NIGHT"}}' wx:key='{{index}}'>多云</text>
+            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="CLOUDY"}}' wx:key='{{index}}'>阴</text>
+            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="RAIN"}}' wx:key='{{index}}'>雨</text>
+            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="SNOW"}}' wx:key='{{index}}'>雪</text>
+            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="WIND"}}' wx:key='{{index}}'>风</text>
+            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="HAZE"}}' wx:key='{{index}}'>雾霾沙尘</text>
           </view>
           <view class='tr'>
             <text class='title'>温度</text>
-            <text class='td' wx:for='{{forecast.hourly.temperature}}' wx:key='{{index}}'>{{item.value}}℃</text>
+            <text class='td' wx:for='{{hourly.hourly.temperature}}' wx:key='{{index}}'>{{item.value}}℃</text>
+          </view>
+          <view class='tr'>
+            <text class='title'>气压</text>
+            <text class='td' wx:for='{{hourlypres}}' wx:key='{{index}}'>{{item}}Pa</text>
           </view>
         </view>
       </view>
@@ -88,11 +92,11 @@
           </view>
           <view class='tr'>
             <text class='title'>相对湿度</text>
-            <text class='td' wx:for='{{forecast.daily.humidity}}' wx:key='{{index}}'>{{item.min*1000/10}}%/{{item.max*1000/10}}%</text>
+            <text class='td' wx:for='{{forecast.daily.humidity}}' wx:key='{{index}}'>{{item.min*1000/10}} / {{item.max*1000/10}}%</text>
           </view>
           <view class='tr'>
             <text class='title'>PM2.5</text>
-            <text class='td' wx:for='{{forecast.daily.pm25}}' wx:key='{{index}}'>{{item.min}}/{{item.max}}</text>
+            <text class='td' wx:for='{{forecast.daily.pm25}}' wx:key='{{index}}'>{{item.min}} / {{item.max}}μg/m3</text>
           </view>
           <view class='tr'>
             <text class='title'>天气</text>
@@ -107,7 +111,15 @@
           </view>
           <view class='tr'>
             <text class='title'>温度</text>
-            <text class='td' wx:for='{{forecast.daily.temperature}}' wx:key='{{index}}'>{{item.min}}℃/{{item.max}}℃</text>
+            <text class='td' wx:for='{{forecast.daily.temperature}}' wx:key='{{index}}'>{{item.min}} / {{item.max}}℃</text>
+          </view>
+          <view class='tr'>
+            <text class='title'>气压</text>
+            <text class='td' wx:for='{{daypres}}' wx:key='{{index}}'>{{item.min}} / {{item.max}}Pa</text>
+          </view>
+          <view class='tr'>
+            <text class='title'>能见度</text>
+            <text class='td' wx:for='{{forecast.daily.visibility}}' wx:key='{{index}}'>{{item.min}} / {{item.max}}KM</text>
           </view>
           <view class='tr'>
             <text class='title'>舒适度</text>
@@ -128,10 +140,6 @@
           <view class='tr'>
             <text class='title'>紫外线</text>
             <text class='td' wx:for='{{forecast.daily.ultraviolet}}' wx:key='{{index}}'>{{item.desc}}</text>
-          </view>
-          <view class='tr'>
-            <text class='title'>能见度</text>
-            <text class='td' wx:for='{{forecast.daily.visibility}}' wx:key='{{index}}'>{{item.min}}KM/{{item.max}}KM</text>
           </view>
         </view>
       </view>
