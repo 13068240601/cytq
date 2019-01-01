@@ -22,24 +22,45 @@ Page({
   getAddress:function(e){
     // console.log(e.detail.value)
     var that = this
-    var qqmapsdk = new QQMapWX({
-      key: 'FFHBZ-55RWX-WOA4E-ZNB7T-56X2Z-3NBDQ' // 必填
-    });
-    qqmapsdk.getSuggestion({
-      keyword: that.data.val,
-      success:function(res){
-        // console.log(res.data)
-        that.setData({
-          pois:res.data
-        })
-      },
-      fail: function (res) {
-        console.log(res);
-      },
-      complete: function (res) {
-        // console.log(res);
-      }
-    })
+    if(that.data.val!=''){
+      wx.showLoading({
+        title: '加载中...',
+      })
+      var qqmapsdk = new QQMapWX({
+        key: 'FFHBZ-55RWX-WOA4E-ZNB7T-56X2Z-3NBDQ' // 必填
+      });
+      qqmapsdk.getSuggestion({
+        keyword: that.data.val,
+        success: function (res) {
+          // console.log(res.data)
+          wx.hideLoading()
+          if(res.data.length==0){
+            wx.showToast({
+              title: '该地址暂无收录...',
+              icon: 'none',
+              duration: 1000
+            })
+          }else{
+            that.setData({
+              pois: res.data
+            })
+          }
+        },
+        fail: function (res) {
+          console.log(res);
+        },
+        complete: function (res) {
+          // console.log(res);
+        }
+      })
+    }else{
+      wx.showToast({
+        title: '请输入地址...',
+        icon: 'none',
+        duration: 1000
+      })
+    }
+    
     // wx.request({
     //   url: 'https://restapi.amap.com/v3/place/text',
     //   data:{

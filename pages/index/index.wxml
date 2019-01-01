@@ -14,16 +14,16 @@
       </view>
       <view class='info'>
         <view class='left'>
-          <text>天气 {{precipitation==null?skycon:precipitation}}</text>
+          <text>{{precipitation==null?skycon:precipitation}}</text>
           <text>空气质量 {{aqi}}</text>
-          <text>{{direction}}风{{wind}}</text>
+          <text>能见度 {{data.visibility}}KM</text>
           <text>相对湿度 {{data.humidity*1000/10}}%</text>
           <text>PM2.5 {{data.pm25}}μg/m3</text>
           <text>二氧化氮 {{data.no2}}μg/m3</text>
           <text>一氧化碳 {{data.co}}μg/m3</text>
         </view>
         <view class='right'>
-          <text>能见度 {{data.visibility}}KM</text>
+          <view><image style='transform: rotate({{data.wind.direction}}deg)' class='direction' src='../../img/wind.png'></image>{{wind}}</view>
           <text>气压 {{pres}}Pa</text>
           <text>体感 {{data.comfort.desc}}</text>
           <text>紫外线 {{data.ultraviolet.desc}}</text>
@@ -74,6 +74,66 @@
             <text class='td' wx:for='{{hourly.hourly.temperature}}' wx:key='{{index}}'>{{item.value}}℃</text>
           </view>
           <view class='tr'>
+            <text class='title'>风</text>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=0&&item.speed<1}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>0级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=1&&item.speed<6}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>1级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=6&&item.speed<12}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>2级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=12&&item.speed<20}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>3级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=20&&item.speed<29}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>4级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=29&&item.speed<39}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>5级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=39&&item.speed<50}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>6级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=50&&item.speed<62}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>7级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=62&&item.speed<75}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>8级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=75&&item.speed<89}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>9级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=89&&item.speed<103}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>10级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=103&&item.speed<118}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>11级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=118&&item.speed<134}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>12级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=134&&item.speed<150}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>13级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=150&&item.speed<167}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>14级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=167&&item.speed<184}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>15级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=184&&item.speed<202}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>16级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=202&&item.speed<221}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>17级
+            </view>
+            <view class='td' wx:for='{{hourly.hourly.wind}}' wx:if='{{item.speed>=221}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>17级以上
+            </view>
+          </view>
+          <view class='tr'>
             <text class='title'>气压</text>
             <text class='td' wx:for='{{hourlypres}}' wx:key='{{index}}'>{{item}}Pa</text>
           </view>
@@ -112,6 +172,66 @@
           <view class='tr'>
             <text class='title'>温度</text>
             <text class='td' wx:for='{{forecast.daily.temperature}}' wx:key='{{index}}'>{{item.min}} / {{item.max}}℃</text>
+          </view>
+          <view class='tr'>
+            <text class='title'>风</text>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=0&&item.avg.speed<1}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>0级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=1&&item.avg.speed<6}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>1级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=6&&item.avg.speed<12}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>2级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=12&&item.avg.speed<20}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>3级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=20&&item.avg.speed<29}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>4级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=29&&item.avg.speed<39}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>5级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=39&&item.avg.speed<50}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>6级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=50&&item.avg.speed<62}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>7级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind.avg}}' wx:if='{{item.avg.speed>=62&&item.avg.speed<75}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.direction}}deg)' class='direction' src='../../img/wind.png'></image>8级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=75&&item.avg.speed<89}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>9级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=89&&item.avg.speed<103}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>10级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=103&&item.avg.speed<118}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>11级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=118&&item.avg.speed<134}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>12级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=134&&item.avg.speed<150}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>13级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=150&&item.avg.speed<167}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>14级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=167&&item.avg.speed<184}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>15级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=184&&item.avg.speed<202}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>16级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=202&&item.avg.speed<221}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>17级
+            </view>
+            <view class='td' wx:for='{{forecast.daily.wind}}' wx:if='{{item.avg.speed>=221}}' wx:key='{{index}}'>
+              <image style='transform: rotate({{item.avg.direction}}deg)' class='direction' src='../../img/wind.png'></image>17级以上
+            </view>
           </view>
           <view class='tr'>
             <text class='title'>气压</text>

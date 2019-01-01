@@ -46,16 +46,24 @@ page{
   width: 50%
 }
 .info .left text{
-  text-align: right;
+  justify-content: flex-end
 }
-.info .right text{
-  text-align: left;
+.info .right text,.info .right view{
+  justify-content: flex-start;
 }
-.info .left text,.info .right text{
+.info .left text,.info .right view,.info .right text{
   display: block;
   padding: 0 10px;
   font-size: 32rpx;
+  height: 50rpx;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.direction{
+  width: 20rpx;
+  height: 37rpx;
+  margin-right: 10px;
 }
 .forecast_keypoint{
   text-align: center;
@@ -89,10 +97,10 @@ page{
   white-space: nowrap;
   padding: 3px 0;
 }
-.table .tr text{
+.table .tr text,.table .tr view{
   padding: 0 10px;
 }
-.table .tr .th,.td{
+.table .tr .th,.table .tr .td{
   display: inline-block;
   width: 180px;
   text-align: center;

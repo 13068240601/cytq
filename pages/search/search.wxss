@@ -26,6 +26,7 @@ page{
 .search_input input{
   width: calc(100% - 35px);
   color: #ffffff;
+  caret-color: #ffffff;
 }
 .search_input image{
   width: 25px;
