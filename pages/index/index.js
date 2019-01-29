@@ -23,6 +23,7 @@ Page({
     hourlypres: [],//小时级气压
     daypres:[],//天级级气压
     address:'',
+    greetings:''//问候语
   },
   //搜索地址
   search:function(){
@@ -36,9 +37,37 @@ Page({
       hidd_loading:false
     })
     return new Promise((resolve, reject) => {
-      wx.getLocation({
-        type: 'wgs84',
-        success : res => resolve(res)
+      wx.getSetting({
+        success(res) {
+          if (!res.authSetting['scope.userLocation']) {
+            wx.authorize({
+              scope: 'scope.userLocation',
+              success() {
+                wx.getLocation({
+                  type: 'wgs84',
+                  success : res => resolve(res),
+                  fail:res => reject(res)
+                })
+              },
+              fail(){
+                wx.showModal({
+                  title: '',
+                  content: '不授权将获取不到数据,是否打开用户位置授权',
+                  success(res) {
+                    if (res.confirm) {
+                      wx.openSetting({
+                        success(res) {
+                        }
+                      })
+                    } else if (res.cancel) {
+                      
+                    }
+                  }
+                })
+              }
+            })
+          }
+        }
       })
     })
   },
@@ -300,6 +329,7 @@ Page({
   getData(){
     var that = this
     if ((that.data.lng == '' || that.data.lat=='')&&that.data.address==''){
+      
       that.getLocation().then((res) => {
         that.setData({
           lng: res.longitude,
@@ -310,6 +340,8 @@ Page({
           that.gethourly(that.data.lng, that.data.lat)
           that.getAddress()
         })
+      }).catch((err)=>{
+        console.log(err)
       })
     }else{
       that.getWeather(that.data.lng, that.data.lat)
@@ -386,21 +418,25 @@ Page({
   },
   onLoad: function (options) {
     var that = this
-    
-    // wx.getSetting({
-    //   success(res) {
-    //     console.log(res.authSetting['scope.userLocation'])
-    //     if (res.authSetting['scope.userLocation']==false){
-    //       console.log(123)
-    //       wx.authorize({
-    //         scope: 'scope.userLocation',
-    //         success() {
-    //           wx.startRecord()
-    //         }
-    //       })
-    //     }
-    //   }
-    // })
+    var d = new Date()
+    var h = d.getHours()
+    var greetings = ''
+    if(h>=6&&h<=8){
+      greetings = '早上好'
+    }else if(h>=9&&h<=11){
+      greetings = '上午好'
+    }else if(h>=12&&h<=13){
+      greetings = '中午好'
+    }else if(h>=14&&h<=17){
+      greetings = '下午好'
+    }else if(h==18){
+      greetings = '傍晚好'
+    }else{
+      greetings = '晚上好'
+    }
+    this.setData({
+      greetings:greetings
+    })
     if(options.lng){
       that.setData({
         lng: options.lng,

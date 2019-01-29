@@ -8,5 +8,10 @@
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "彩云接口天气预报",
     "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "天气信息需要获取位置"
+    }
   }
 }

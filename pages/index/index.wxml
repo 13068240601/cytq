@@ -1,6 +1,14 @@
 <view class='tq_container' wx:if='{{load}}'>
   <scroll-view scroll-y class='scroll'>
     <view class='tq_real_time'>
+      <view class="user">
+        <view class="userAvatarUrl">
+          <open-data type="userAvatarUrl"></open-data>
+        </view>
+        <view class="userNickName" hover-class="none" hover-stop-propagation="false">
+          <open-data type="userNickName"></open-data>{{greetings}}
+        </view>
+      </view>
       <view class='address' bindtap='search'>
         <text wx:if='{{address.addressComponent}}'>{{address.addressComponent.district}}{{address.addressComponent.township}}{{address.addressComponent.streetNumber.street}}附近</text>
         <text wx:else>{{address}}</text>
