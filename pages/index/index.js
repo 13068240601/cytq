@@ -317,7 +317,6 @@ Page({
         key: 'e4bafd250b7db094f1d57bc5151925a3',
       },
       success: function (res) {
-        // console.log(res)
         if (res.data.status == 1) {
           that.setData({
             address: res.data.regeocode
@@ -329,7 +328,6 @@ Page({
   getData(){
     var that = this
     if ((that.data.lng == '' || that.data.lat=='')&&that.data.address==''){
-      
       that.getLocation().then((res) => {
         that.setData({
           lng: res.longitude,
