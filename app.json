@@ -6,7 +6,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTitleText": "彩云接口天气预报",
+    "navigationBarTitleText": "天气预报",
     "navigationBarTextStyle": "black"
   },
   "permission": {

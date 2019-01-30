@@ -66,6 +66,12 @@ Page({
                 })
               }
             })
+          }else{
+            wx.getLocation({
+              type: 'wgs84',
+              success: res => resolve(res),
+              fail: res => reject(res)
+            })
           }
         }
       })
@@ -328,6 +334,7 @@ Page({
   getData(){
     var that = this
     if ((that.data.lng == '' || that.data.lat=='')&&that.data.address==''){
+      
       that.getLocation().then((res) => {
         that.setData({
           lng: res.longitude,
