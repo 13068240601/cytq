@@ -10,6 +10,7 @@
         </view>
       </view>
       <view class='address' bindtap='search'>
+        <image src='../../img/position.png'></image>
         <text wx:if='{{address.addressComponent}}'>{{address.addressComponent.district}}{{address.addressComponent.township}}{{address.addressComponent.streetNumber.street}}附近</text>
         <text wx:else>{{address}}</text>
       </view>
