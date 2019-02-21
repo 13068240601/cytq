@@ -69,14 +69,16 @@
           </view>
           <view class='tr'>
             <text class='title'>天气</text>
-            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="CLEAR_DAY"}}' wx:key='{{index}}'>晴</text>
-            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="CLEAR_NIGHT"}}' wx:key='{{index}}'>晴</text>
+            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:key='{{index}}'>{{item.value=='CLEAR_DAY'?'晴':(item.value=='CLEAR_NIGHT'?'晴夜':(item.value=='PARTLY_CLOUDY_DAY'?'多云':(item.value=='PARTLY_CLOUDY_NIGHT'?'多云夜':(item.value=='CLOUDY'?'阴':(item.value=='RAIN'?'雨':(item.value=='SNOW'?'雪':(item.value=='WIND'?'风':'雾霾')))))))}}
+            </text>
+            <!-- <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if="{{item.value=='CLEAR_DAY'}}" wx:key='{{index}}'>晴</text>
+            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="CLEAR_NIGHT"}}' wx:key='{{index}}'>晴夜</text>
             <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="PARTLY_CLOUDY_DAY"||item.value=="PARTLY_CLOUDY_NIGHT"}}' wx:key='{{index}}'>多云</text>
             <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="CLOUDY"}}' wx:key='{{index}}'>阴</text>
             <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="RAIN"}}' wx:key='{{index}}'>雨</text>
             <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="SNOW"}}' wx:key='{{index}}'>雪</text>
             <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="WIND"}}' wx:key='{{index}}'>风</text>
-            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="HAZE"}}' wx:key='{{index}}'>雾霾沙尘</text>
+            <text class='td' wx:for='{{hourly.hourly.skycon}}' wx:if='{{item.value=="HAZE"}}' wx:key='{{index}}'>雾霾沙尘</text> -->
           </view>
           <view class='tr'>
             <text class='title'>温度</text>
