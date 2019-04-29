@@ -263,7 +263,7 @@ Page({
       load:false,
     },function(){
       wx: wx.request({
-        url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/' + lng + ',' + lat + '/realtime.json',  
+        url: 'https://api.caiyunapp.com/v2/令牌/' + lng + ',' + lat + '/realtime.json',  
         data: {
           unit: 'metric:v2'
         },
@@ -365,7 +365,7 @@ Page({
       load: false,
     },function(){
       wx.request({
-        url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/' + lng + ',' + lat + '/daily.json',
+        url: 'https://api.caiyunapp.com/v2/令牌/' + lng + ',' + lat + '/daily.json',
         data: {
           unit: 'metric:v2'
         },
@@ -398,7 +398,7 @@ Page({
       load: false,
     }, function () {
       wx.request({
-        url: 'https://api.caiyunapp.com/v2/YGfdS8qarxLFj2Sw/' + lng + ',' + lat + '/hourly.json',
+        url: 'https://api.caiyunapp.com/v2/令牌/' + lng + ',' + lat + '/hourly.json',
         data: {
           unit: 'metric:v2'
         },
